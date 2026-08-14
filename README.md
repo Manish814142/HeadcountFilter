@@ -5,8 +5,8 @@
 
 ![tests](https://img.shields.io/badge/tests-585%20passing-brightgreen) ![version](https://img.shields.io/badge/version-7.69-blue) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
-<!-- TODO: replace with a real GIF — panel open, unchecking a size bucket, cards fading out live.
-     See "Screenshots" section below for exactly what to capture. -->
+<!-- TODO: swap for a GIF — panel open, unchecking a size bucket, cards fading out live. -->
+![Filter Sizes panel open on a LinkedIn job feed, showing the size checklist, the live Cached/Hidden/Unclassified counter, an inline card size badge, and the detail-pane company badge](./screenshots/panel-overview.png)
 
 ## Why this exists
 
@@ -32,12 +32,10 @@ LinkedIn lets you filter jobs by date posted, experience level, remote/on-site �
 
 ## Screenshots
 
-*(to add before publishing — I don't have browser access to capture these myself)*
-
-- [ ] Panel expanded: size checklist + live Cached/Hidden/Unclassified counter
-- [ ] Before/after: same scroll position, unfiltered feed vs. filtered feed
-- [ ] A job card showing its inline size badge
-- [ ] Short (5-8s) GIF of toggling a size bucket and watching cards filter live — this is the single most effective thing to put at the top of this README
+| | |
+|---|---|
+| ![Panel with a size bucket unchecked, hiding smaller companies from the feed](./screenshots/panel-filter-applied.png) **Filtering applied** — small-company buckets unchecked, 10 cards hidden from the feed. | ![Fetch tab: Auto-Fetch Unclassified Companies and Re-verify Stale Companies controls](./screenshots/panel-fetch-tab.png) **Fetch tab** — Auto-Fetch Unclassified Companies and the Re-verify Stale Companies sweep, with the cross-run cooldown control. |
+| ![Data tab: copy unclassified names, manage cached companies, manage company pages, feature health, copy diagnostics](./screenshots/panel-data-tab.png) **Data tab** — cache management, backup/restore, and the live feature-health / diagnostics tools. | *(GIF coming in a follow-up push: toggling a size bucket and watching cards filter live.)* |
 
 ## Install
 
