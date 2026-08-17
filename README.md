@@ -8,6 +8,18 @@
 <!-- TODO: swap for a GIF — panel open, unchecking a size bucket, cards fading out live. -->
 ![Filter Sizes panel open on a LinkedIn job feed, showing the size checklist, the live Cached/Hidden/Unclassified counter, an inline card size badge, and the detail-pane company badge](./screenshots/panel-overview.png)
 
+## Table of Contents
+
+- [Why this exists](#why-this-exists)
+- [What it does](#what-it-does)
+- [Screenshots](#screenshots)
+- [Install](#install)
+- [Privacy & Account Safety](#privacy--account-safety)
+- [Usage](#usage)
+- [Under the hood](#under-the-hood)
+- [Testing](#testing)
+- [License](#license)
+
 ## Why this exists
 
 LinkedIn lets you filter jobs by date posted, experience level, remote/on-site — but not by **company size**. If you specifically want early-stage startups (or specifically want to avoid them, or only want enterprise-scale companies), there's no native way to do that. You end up opening every job, checking the company's profile by hand, and closing the ones that don't fit. I built this to automate that for my own job search — it now runs entirely in the background while I browse normally.
