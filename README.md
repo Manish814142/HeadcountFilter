@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD033 -->
 # HeadcountFilter
 
-**A Tampermonkey userscript that adds company-size filtering to the LinkedIn job feed** — something LinkedIn's own filters don't offer.
+**A self-healing browser tool that adds company-headcount filtering to LinkedIn's job feed** — something LinkedIn's own filters don't offer. Runs entirely client-side, with zero backend and zero data collection.
 
 ![tests](https://img.shields.io/badge/tests-585%20passing-brightgreen) ![version](https://img.shields.io/badge/version-7.69-blue) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
@@ -39,10 +39,25 @@ LinkedIn lets you filter jobs by date posted, experience level, remote/on-site �
 
 ## Install
 
-1. Install the [Tampermonkey](https://www.tampermonkey.net/) browser extension.
-2. Open Tampermonkey → **Create a new script**.
-3. Delete the placeholder content and paste in the full contents of [`headcount-filter.user.js`](./headcount-filter.user.js).
-4. Save (Ctrl+S). Visit any `linkedin.com` page — a **"Filter Sizes"** button appears.
+[![Install with Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey%20Userscript-brightgreen?style=for-the-badge&logo=tampermonkey)](https://raw.githubusercontent.com/Manish814142/HeadcountFilter/main/headcount-filter.user.js)
+
+1. Install the [Tampermonkey](https://www.tampermonkey.net/) browser extension, if you don't already have it.
+2. Click the badge above — Tampermonkey recognizes the raw `.user.js` file and prompts you to install it directly.
+3. Visit any `linkedin.com` page — a **"Filter Sizes"** button appears.
+
+<details>
+<summary>Manual install (if the badge doesn't trigger a prompt)</summary>
+
+1. Open Tampermonkey → **Create a new script**.
+2. Delete the placeholder content and paste in the full contents of <code>headcount-filter.user.js</code>.
+3. Save (Ctrl+S).
+
+</details>
+
+## Privacy & Account Safety
+
+- **No data collection** — everything runs client-side in your browser. There's no backend, no analytics, no telemetry. The only domains this script ever contacts are `linkedin.com` (pages you're already browsing) and `bing.com` / `google.com` / `duckduckgo.com` (to locate a company's LinkedIn page when guessing fails) — exactly the domains declared in the script's own `@connect` allowlist, nothing more.
+- **Session-safe by design** — every outbound lookup goes through one function, `makeAnonymousRequest()`, which explicitly sets `anonymous: true` and strips all logged-in cookies before the request goes out, so none of this can touch your LinkedIn session or put the account at risk.
 
 ## Usage
 
@@ -53,7 +68,29 @@ LinkedIn lets you filter jobs by date posted, experience level, remote/on-site �
 
 ## Under the hood
 
-The interesting engineering problem here isn't the filtering logic — it's that LinkedIn's markup changes without notice, and a userscript with no error reporting or user base to complain will just quietly stop working. Most of the actual effort went into making failures visible and survivable instead of silent:
+The interesting engineering problem here isn't the filtering logic — it's that LinkedIn's markup changes without notice, and a userscript with no error reporting or user base to complain will just quietly stop working. Most of the actual effort went into making failures visible and survivable instead of silent.
+
+**Company-size resolution pipeline:**
+
+```mermaid
+flowchart TD
+    A[Job feed page loads] --> B[Invisible full-list scroll sweep]
+    B --> C[Read each card's company name]
+    C --> D{Already cached?}
+    D -- yes --> E[Apply filter + inline size badge]
+    D -- no --> F[Mark Unclassified]
+
+    F --> G[User clicks Auto-Fetch]
+    G --> H[1. Cached slug lookup]
+    H -- miss --> I[2. Guess slug variants from the name]
+    I -- miss --> J["3. Search fallback (Bing, Google, DuckDuckGo)"]
+    J --> K{Result verified against<br/>the target company?}
+    K -- yes --> L[Merge into local cache]
+    K -- no / rate-limited --> M[Adaptive backoff,<br/>retry later or give up]
+    L --> E
+
+    N["Normal browsing<br/>(company page / job detail pane)"] -. passive, zero extra requests .-> L
+```
 
 - **Self-healing extraction** — every DOM read that matters (company name, job title, etc.) goes through a ranked fallback chain of selectors rather than one hardcoded guess, with live hit-rate tracking recording which selector actually won on each read.
 - **Zero-dependency diagnostics** — a "Copy Diagnostics" button dumps a full report (feature health per subsystem, selector hit rates, DOM structure snapshots) as plain text. Every bug in this project's history was fixed from one of these reports — no server, no logging backend, no repro environment needed.

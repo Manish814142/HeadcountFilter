@@ -1,7 +1,7 @@
 {
   "name": "headcount-filter",
   "version": "7.69.0",
-  "description": "LinkedIn userscript that filters the job feed by company headcount, with a self-healing extraction layer that survives LinkedIn markup changes.",
+  "description": "Self-healing browser tool that filters LinkedIn's job feed by company headcount — anonymous auto-fetch pipeline, zero backend, 585-test regression suite.",
   "scripts": {
     "test": "node headcount-filter.test.js",
     "check": "node --check headcount-filter.user.js && node --check headcount-filter.test.js && node headcount-filter.test.js"
