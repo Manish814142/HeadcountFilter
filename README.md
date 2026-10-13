@@ -46,7 +46,7 @@ LinkedIn lets you filter jobs by date posted, experience level, remote/on-site �
 | | |
 |---|---|
 | ![Panel with a size bucket unchecked, hiding smaller companies from the feed](./screenshots/panel-filter-applied.png) **Filtering applied** — small-company buckets unchecked, 10 cards hidden from the feed. | ![Fetch tab: Auto-Fetch Unclassified Companies and Re-verify Stale Companies controls](./screenshots/panel-fetch-tab.png) **Fetch tab** — Auto-Fetch Unclassified Companies and the Re-verify Stale Companies sweep, with the cross-run cooldown control. |
-| ![Data tab: copy unclassified names, manage cached companies, manage company pages, feature health, copy diagnostics](./screenshots/panel-data-tab.png) **Data tab** — cache management, backup/restore, and the live feature-health / diagnostics tools. | |
+| ![Data tab: copy unclassified names, manage cached companies, manage company pages, feature health, copy diagnostics](./screenshots/panel-data-tab.png) **Data tab** — cache management, backup/restore, and the live feature-health / diagnostics tools. | ![Manage cached companies: the JSON cache editor opening, with Export, Import and merge, Clear All, and Save](./screenshots/demo.gif) **Manage cached companies, live** — opening the JSON cache editor (Export / Import & merge / Clear All / Save). |
 
 ## Install
 
